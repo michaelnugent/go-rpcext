@@ -21,9 +21,9 @@ type RPCExt struct {
 	maxIdleConnections int
 	clientBuilder      ClientBuilder
 
-	statRequests               *metrics.Counter
-	statEstablishedConnections *metrics.Counter
-	statLiveConnections        *metrics.Counter
+	statRequests               *metrics.IntegerGauge
+	statEstablishedConnections *metrics.IntegerGauge
+	statLiveConnections        *metrics.IntegerGauge
 }
 
 func NewRPCExt(name string, maxIdleConnections int, clientBuilder ClientBuilder) *RPCExt {
@@ -34,9 +34,9 @@ func NewRPCExt(name string, maxIdleConnections int, clientBuilder ClientBuilder)
 		clientBuilder:      clientBuilder,
 		closed:             false,
 
-		statRequests:               metrics.NewCounter(),
-		statEstablishedConnections: metrics.NewCounter(),
-		statLiveConnections:        metrics.NewCounter(),
+		statRequests:               metrics.NewIntegerGauge(),
+		statEstablishedConnections: metrics.NewIntegerGauge(),
+		statLiveConnections:        metrics.NewIntegerGauge(),
 	}
 
 	m := expvar.NewMap(name + "-rpc")
